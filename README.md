@@ -21,9 +21,13 @@ Here's a brief description of the parameters:
 # MAIN CODE Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)
 
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
+
 **iTunes:** If True, will use iTunes library or playlists (if False, it will use WMP)
+
 **PL_name**: if supplied and Do_lib=False, it will create a list of files and tags for the playlist PL_name
+
 **PL_nbr**: If supplied and Do_lib=False, it will create a list of files and tags for the playlist number PL_nbr
+
 **rows**: Whether the source is the whole library or a playlist, this option limits the number of files to read,
 if necessary.
 
