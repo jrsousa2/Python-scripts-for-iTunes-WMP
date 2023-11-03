@@ -9,7 +9,9 @@ create an Excel file with a list of your mp3 files and chosen tags, either throu
 You can choose to export a list of files (plus tags) either for all of your library or for a playlist (or set of playlists).
 
 This is a basic code and is useful to give first time users some insights into the libraries of functions, methods and
-properties of both WMP and iTunes. For example:
+properties of both WMP and iTunes. 
+
+For example:
   How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
   How do you read the file tags that WMP keeps in the metadata, some of which are intrinsic to the file and some of which are extrinsic?
   How can you sync play counts between iTunes and WMP?
@@ -35,22 +37,6 @@ the main macro with.) Here's an example:
 col_names =  ["Arq","Art","Title","Year"]
 
 Here's a list of all tags that can be extracted:
-Tag	Description	iTunes	WMP
-ID	4-dimension tuple that id's a file in the iTunes library or playlist	x	
-Arq	the name of the file	x	x
-Art	the artist	x	x
-Title	the song title	x	x
-AA	the album artist	x	x
-Album	the album name	x	x
-Genre	the genre	x	x
-Year	the release year	x	x
-Group	the Grouping tag	x	
-Bitrate	the file bit rate	x	x
-Len	the length of the track	x	x
-Covers	the number of covers/art work the file has	x	
-Plays	the number of plays	x	x
-Skips	the number of skips	x	
-Added	the datetime the file was added to the library	x	x
 ![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e05ba46c-01f6-4e1a-97bd-d41e3136132f)
 
 
