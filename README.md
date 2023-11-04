@@ -27,7 +27,8 @@ def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
 <br>**PL_nbr**: If supplied and Do_lib=False, will create a list of files and tags for the playlist number PL_nbr
 <br>**rows**: Whether the source is the whole library or a playlist, this option limits the number of files to read,
 if necessary.
-<br>If none of the above parameters (PL_name, PL_Nbr) is supplied, and Do_lib=False, the code will display a list of
+
+If none of the above parameters (PL_name, PL_Nbr) is supplied, and Do_lib=False, the code will display a list of
 playlists along with their respective numbers (per the iTunes or WMP libraries), and the user will be able to enter 
 all playlists that they wish to process separated by comma (the program has instruction prompts and other messages to guide the user).
 
