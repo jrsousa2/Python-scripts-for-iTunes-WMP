@@ -15,9 +15,9 @@ properties of both the WMP and iTunes COM API's. (Asking ChatGPT to create this 
   <br>&nbsp;&nbsp;&nbsp;How do you read the file tags that WMP keeps in the metadata, some of which are embedded into the file and some of which are external?
   <br>&nbsp;&nbsp;&nbsp;How can you sync play counts between iTunes and WMP? (Code Call_Sync_Plays.py does that by taking the max of both).
 
-<br>Here's a brief description of the parameters:
+<br>Here's a brief description of the parameters of the codes:
 
-<br><b>MAIN CODE Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)</b>
+<br><b>Code Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)</b>
 
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
 
