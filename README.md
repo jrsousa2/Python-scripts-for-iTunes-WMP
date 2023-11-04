@@ -11,9 +11,9 @@ You can choose to export a list of files (plus tags) either for all of your libr
 properties of both WMP and iTunes. 
 
 <br>For example:
-  <br>&nbsp;How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
-  <br>&nbsp;How do you read the file tags that WMP keeps in the metadata, some of which are intrinsic to the file and some of which are extrinsic?
-  <br>&nbsp;How can you sync play counts between iTunes and WMP?
+  <br>&nbsp;&nbsp;&nbsp;How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
+  <br>&nbsp;&nbsp;&nbsp;How do you read the file tags that WMP keeps in the metadata, some of which are intrinsic to the file and some of which are extrinsic?
+  <br>&nbsp;&nbsp;&nbsp;How can you sync play counts between iTunes and WMP?
 
 <br>Here's a brief description of the parameters:
 
