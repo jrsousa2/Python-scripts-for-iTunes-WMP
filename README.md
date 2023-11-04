@@ -1,4 +1,4 @@
-# Python-scripts-for-iTunes
+![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/a5326991-d528-46db-a40e-b41752645898)# Python-scripts-for-iTunes
 I just started on GitHub, eventually I plan to share my Python scripts to manage your iTunes music library.
 
 <br>11/03/2023 Edit: I've just shared three of the python codes that I use to manage my music collection (with 
@@ -36,9 +36,11 @@ playlists along with their respective numbers (per the iTunes or WMP libraries),
 all playlists that they wish to process separated by comma (the program has instruction prompts and other messages to guide the user).
 
 <br>**col_names**: This variable is entered straight into the code and identifies the tags that the user
-wants to extract from the mp3 files. (The code can be easily modified to have this variable as a parameter to call
-the main macro with.) Here's an example:
-col_names =  ["Arq","Art","Title","Year"]
+wants to extract from the mp3 files. 
+<br>(The code can be easily modified to have this variable as a parameter to call
+the main macro with.) 
+<br>Here's an example:
+<br>col_names =  ["Arq","Art","Title","Year"]
 
 <br>Here's a list of all tags that can be extracted:
 ![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e05ba46c-01f6-4e1a-97bd-d41e3136132f)
