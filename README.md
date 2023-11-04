@@ -20,7 +20,6 @@ properties of both the WMP and iTunes COM API's. (Asking ChatGPT to create this 
 <br><b>Code Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)</b>
 
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
-
 <br>**iTunes:** If True, will use iTunes library or playlists (if False, it will use WMP)
 <br>**Do_lib**: If True, will run on the whole library instead of a playlist (or list of playlists)
 <br>**PL_name**: If supplied and Do_lib=False, will create a list of files and tags for the playlist PL_name
