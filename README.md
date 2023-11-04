@@ -45,3 +45,6 @@ wants to extract from the mp3 files.
 <br>**Be sure to change the default folder** that the Excel file will be saved to in the main code.
 This is done in lines 41 and 43 of the main codes and is currenty set to:
 file_nm = "D:\\iTunes\\Excel\\" + user_inp + ".xlsx"
+
+<br>Finally, this is a snapshot of one output file:
+![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/03203f42-ef28-4901-912c-e18211b5d406)
