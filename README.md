@@ -22,7 +22,7 @@ properties of both the WMP and iTunes COM API's. (Asking ChatGPT to create this 
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
 
 <br>**iTunes:** If True, will use iTunes library or playlists (if False, it will use WMP)
-<br>**Do_lib**: If True, will run on the whole library insteaf of a playlist (or list of playlists)
+<br>**Do_lib**: If True, will run on the whole library instead of a playlist (or list of playlists)
 <br>**PL_name**: If supplied and Do_lib=False, will create a list of files and tags for the playlist PL_name
 <br>**PL_nbr**: If supplied and Do_lib=False, will create a list of files and tags for the playlist number PL_nbr
 <br>**rows**: Whether the source is the whole library or a playlist, this option limits the number of files to read,
