@@ -1,7 +1,7 @@
 I just started on GitHub, eventually I plan to share my Python scripts to manage your iTunes music library.
 
 <br>11/03/2023 Edit: I've just shared three of the python codes that I use to manage my music collection (with 
-roughly 63,000 mp3 files) in both Tunes and Windows Media Player.
+roughly 63,000 mp3 files) in both iTunes and Windows Media Player.
 
 <br>The main code Call_Save_to_Excel.py can be run from VS Code (or any other suitable python compiler/editor) and will
 create an Excel file with a list of your mp3 files and chosen tags, either through an interface with iTunes or Windows Media Player.
