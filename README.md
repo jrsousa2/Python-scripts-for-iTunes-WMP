@@ -22,8 +22,9 @@ properties of both WMP and iTunes.
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
 
 <br>**iTunes:** If True, will use iTunes library or playlists (if False, it will use WMP)
-<br>**PL_name**: if supplied and Do_lib=False, it will create a list of files and tags for the playlist PL_name
-<br>**PL_nbr**: If supplied and Do_lib=False, it will create a list of files and tags for the playlist number PL_nbr
+<br>**Do_lib**: If True, will run on the whole library insteaf of a playlist (or list of playlists)
+<br>**PL_name**: If supplied and Do_lib=False, will create a list of files and tags for the playlist PL_name
+<br>**PL_nbr**: If supplied and Do_lib=False, will create a list of files and tags for the playlist number PL_nbr
 <br>**rows**: Whether the source is the whole library or a playlist, this option limits the number of files to read,
 if necessary.
 
@@ -33,15 +34,14 @@ all playlists that they wish to process separated by comma (the program has inst
 
 <br>**col_names**: This variable is entered straight into the code and identifies the tags that the user
 wants to extract from the mp3 files. 
-<br>(The code can be easily modified to have this variable as a parameter to call
-the main macro with.) 
+<br>(The code can be easily modified to have this variable as a parameter to call the main macro with.) 
 <br>Here's an example:
 <br>col_names =  ["Arq","Art","Title","Year"]
 
-<br>Here's a list of all tags that can be extracted:
+<br>Here's a list of all the tags that can be extracted:
 ![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e05ba46c-01f6-4e1a-97bd-d41e3136132f)
 
 
-<br>**Be sure to change the default folder** that the file will be saved to in the main code.
-This is done in lines 41 and 43 of the main codes and is set to:
+<br>**Be sure to change the default folder** that the Excel file will be saved to in the main code.
+This is done in lines 41 and 43 of the main codes and is currenty set to:
 file_nm = "D:\\iTunes\\Excel\\" + user_inp + ".xlsx"
