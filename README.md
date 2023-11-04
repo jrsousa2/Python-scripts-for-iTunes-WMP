@@ -11,22 +11,19 @@ You can choose to export a list of files (plus tags) either for all of your libr
 properties of both WMP and iTunes. 
 
 <br>For example:
-  <br><\t>How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
-  <br><\t>How do you read the file tags that WMP keeps in the metadata, some of which are intrinsic to the file and some of which are extrinsic?
-  <br><\t>How can you sync play counts between iTunes and WMP?
+  <br>&nbsp;How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
+  <br>&nbsp;How do you read the file tags that WMP keeps in the metadata, some of which are intrinsic to the file and some of which are extrinsic?
+  <br>&nbsp;How can you sync play counts between iTunes and WMP?
 
 <br>Here's a brief description of the parameters:
 
-# MAIN CODE Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)
+<br><b>MAIN CODE Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)</b>
 
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
 
 <br>**iTunes:** If True, will use iTunes library or playlists (if False, it will use WMP)
-
 <br>**PL_name**: if supplied and Do_lib=False, it will create a list of files and tags for the playlist PL_name
-
 <br>**PL_nbr**: If supplied and Do_lib=False, it will create a list of files and tags for the playlist number PL_nbr
-
 <br>**rows**: Whether the source is the whole library or a playlist, this option limits the number of files to read,
 if necessary.
 
