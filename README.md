@@ -7,7 +7,7 @@ roughly 63,000 mp3 files) in both <b>iTunes and Windows Media Player</b>.
 create an Excel file with a list of your mp3 files and chosen tags, either through an interface with iTunes or Windows Media Player.
 You can choose to export a list of files (plus tags) either for all of your library or for a playlist (or set of playlists).
 
-<br>These are relatively advanced codes and are useful to give first time users some insights into the libraries of functions, methods and
+<br>These are relatively basic codes and are useful to give first time users some insights into the libraries of functions, methods and
 properties of both the WMP and iTunes COM API's. (Asking ChatGPT to create this type of code doesn't work, it gets lots of these API questions wrong -- ChatGPT struggles with tricky questions.)
 
 <br>For example:
