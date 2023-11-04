@@ -1,4 +1,3 @@
-![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/a5326991-d528-46db-a40e-b41752645898)# Python-scripts-for-iTunes
 I just started on GitHub, eventually I plan to share my Python scripts to manage your iTunes music library.
 
 <br>11/03/2023 Edit: I've just shared three of the python codes that I use to manage my music collection (with 
