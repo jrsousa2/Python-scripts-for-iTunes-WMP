@@ -39,7 +39,7 @@ wants to extract from the mp3 files.
 <br>col_names =  ["Arq","Art","Title","Year"]
 
 <br>Here's a list of all the tags that can be extracted:
-![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e05ba46c-01f6-4e1a-97bd-d41e3136132f)
+![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e3d63161-f639-4c6c-9374-b4ffcb8339de)
 
 
 <br>**Be sure to change the default folder** that the Excel file will be saved to in the main code.
