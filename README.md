@@ -7,8 +7,8 @@ roughly 63,000 mp3 files) in both Tunes and Windows Media Player.
 create an Excel file with a list of your mp3 files and chosen tags, either through an interface with iTunes or Windows Media Player.
 You can choose to export a list of files (plus tags) either for all of your library or for a playlist (or set of playlists).
 
-<br>This is a basic code and is useful to give first time users some insights into the libraries of functions, methods and
-properties of both WMP and iTunes. 
+<br>This is a relatively basic code and is useful to give first time users some insights into the libraries of functions, methods and
+properties of both the WMP and iTunes COM API's (asking ChatGPT usually doesn't work, it gets lots of these questions wrong. Maybe it will get better in the future). 
 
 <br>For example:
   <br>&nbsp;&nbsp;&nbsp;How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
