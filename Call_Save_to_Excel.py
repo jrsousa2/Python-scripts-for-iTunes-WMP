@@ -57,4 +57,4 @@ def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
     # print("Hello, " + file_nm + "!")
 
 # CHAMA PROGRAM PL_name="ALL",Fave-iPhone
-Save_Excel(PL_name="Fave-Tags",Do_lib=0,rows=300,iTunes=0)
+Save_Excel(PL_name="Favorites",Do_lib=0,rows=300,iTunes=0)

@@ -83,7 +83,6 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
     if not Modify_cols:
        col_names = col_names[:]
     
-    
     Init_wmp()
     # LISTA A SER PROCESSADA
     By_name = False
@@ -153,7 +152,7 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
         # ORDER LIST SO COLUMN HEADERS ALWAYS MATCH THEIR VALUES
         col_names = iTunes.order_list(col_names,order_list=order_list_wmp)
         # THE RANGE FOR ITEMS IN A WMP PL IS NOT 0 TO (N-1) (IT'S 1 TO N)
-        for m in range(0,numtracks):
+        for m in range(numtracks):
             if not Do_lib:
                track = read_PL.Item(m)
             else:
@@ -196,11 +195,3 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
     dict = {"Player": wmp, "Lib": library, "media": wmp.mediaCollection, "PLs": playlists, "PL": read_PL, "PL_no": PL_nbr, \
             "PL_Name": PL_name, "tracks": 1, "DF": df}
     return dict
-
-
-# add some tracks to the playlist
-# mc = wmp.mediaCollection
-# filename = "D:\\MP3\Favorites\\The Maxx - Cocaine.mp3"
-# track = library.getByAttribute('MediaPath', filename)
-# track = library.getByPath("D:\\MP3\Favorites\\The Maxx - Cocaine.mp3")
-# print("Test:",track.sourceURL)

@@ -366,39 +366,3 @@ def Order(df, col_names):
 # INITIALIZES iTunes
 Init_iTunes()
 
-# CRIA UMA PLAYLIST
-""" New_PL = None
-New_PL = Cria_PL("xxx")
-arq="D:/MP3/Favorites/Abba - Fernando.mp3"
-print(arq)
-New_PL.AddFile(arq)
-New_PL = None    
- """
-
- # OS OBJETOS ABAIXO SAO RECONHECIDOS POR QQ FUNCAO DESSE MODULO
-# def Initialize():
-#     global iTunesApp
-#     global Sources
-#     global playlists
-#     global PL_ID_dict
-#     global PL_name_dict
-
-#     iTunesApp = win32com.client.Dispatch("iTunes.Application.1")
-#     Sources = iTunesApp.Sources
-
-#     # VARIAVEL GLOBAL 
-#     for i in range(1,Sources.Count+1):
-#           source = Sources.Item(i)
-#           # ESSA VARIAVEL (playlists) DEVE SER DISPONIVEL PARA TODAS AS FUNCOES
-#           if source.Kind == 1:
-#              playlists = source.Playlists
-             
-#              # THE BELOW GLOBAL DICT GIVES THE NAME OF A PL BY THE PL_ID
-#              PL_name_dict = {}
-#              PL_ID_dict = {}
-#              for j in range(1,playlists.Count+1):
-#                  playlist = playlists.Item(j)
-#                  PL_name = playlist.Name
-#                  PL_ID = playlist.playlistID
-#                  PL_ID_dict[PL_ID] = PL_name
-#                  PL_name_dict[PL_name] = j
