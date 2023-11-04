@@ -79,9 +79,10 @@ def Get_WMP_PL_by_nbr(srch_PL):
 # PLAYLISTS
 def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols=True):
 
-    # CREATES OF THE COL. LIST SO IT'S NOT MODIFIED OUTSIDE OF THIS FUNCTION
+    # CREATES A COPY OF THE COL. LIST SO IT'S NOT MODIFIED OUTSIDE OF THIS FUNCTION
     if not Modify_cols:
        col_names = col_names[:]
+    
     
     Init_wmp()
     # LISTA A SER PROCESSADA
@@ -161,15 +162,15 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
             # ONLY DOES AUDIO
             if track.getiteminfo("MediaType")=="audio":
                # THE SOURCE (PLAYLIST/LIBRARY)
-               list = [PL_nbr,PL_name]
+               tag_list = [PL_nbr,PL_name]
                # THE TRACK POSITION
-               list.append(m)
+               tag_list.append(m)
                dict = tag_dict_wmp(track,col_names)
                for key in col_names:
                    value = dict[key]
-                   list.append(value)
+                   tag_list.append(value)
                #ADD ROW TO LIST, BEFORE CREATING DF
-               data.append(list)
+               data.append(tag_list)
                if (m+1) % tam==0:
                    print("Row. no: ",m+1)
         #print("")

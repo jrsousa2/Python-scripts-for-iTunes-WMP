@@ -17,10 +17,15 @@ def file_w_ext(path):
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
     # CALLS Read_PL FUNCTION ,Do_lib=True,rows=10
     # col_names =  ["Arq","Art","Title","AA","Album","Genre","Covers","Year"]
-    col_names =  ["Arq","Art","Title","Year"]
+    col_names =  ["Arq","Art","Title","Year","Covers"]
+    
     if iTunes:
+       # EXCLUDE INVALID TAGS 
+       col_names = [x for x in col_names if x in Read_PL.order_list_itunes]
        dict = Read_PL.Read_PL(col_names,PL_name=PL_name,PL_no=PL_nbr,Do_lib=Do_lib,rows=rows)
     else:
+        # EXCLUDE INVALID TAGS 
+        col_names = [x for x in col_names if x in WMP_Read_PL.order_list_wmp]
         dict = WMP_Read_PL.Read_WMP_PL(col_names,PL_name=PL_name,PL_no=PL_nbr,Do_lib=Do_lib,rows=rows)   
     # ASSIGNS
     # App = dict["App"]
@@ -52,4 +57,4 @@ def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
     # print("Hello, " + file_nm + "!")
 
 # CHAMA PROGRAM PL_name="ALL",Fave-iPhone
-Save_Excel(PL_name_="ZZZ",Do_lib=1,rows=100,iTunes=0)
+Save_Excel(PL_name="Fave-Tags",Do_lib=0,rows=300,iTunes=0)
