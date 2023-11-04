@@ -14,14 +14,14 @@ def file_w_ext(path):
     return file_w_ext
 
 # MAIN CODE
-def Save_Excel(PL_name_vl=None,PL_nbr=None,Do_lib_vl=False,rows_vl=None,iTunes=True):
+def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
     # CALLS Read_PL FUNCTION ,Do_lib=True,rows=10
     # col_names =  ["Arq","Art","Title","AA","Album","Genre","Covers","Year"]
     col_names =  ["Arq","Art","Title","Year"]
     if iTunes:
-       dict = Read_PL.Read_PL(col_names,PL_name=PL_name_vl,PL_no=PL_nbr,Do_lib=Do_lib_vl,rows=rows_vl)
+       dict = Read_PL.Read_PL(col_names,PL_name=PL_name,PL_no=PL_nbr,Do_lib=Do_lib,rows=rows)
     else:
-        dict = WMP_Read_PL.Read_WMP_PL(col_names,PL_name=PL_name_vl,PL_no=PL_nbr,Do_lib=Do_lib_vl,rows=rows_vl)   
+        dict = WMP_Read_PL.Read_WMP_PL(col_names,PL_name=PL_name,PL_no=PL_nbr,Do_lib=Do_lib,rows=rows)   
     # ASSIGNS
     # App = dict["App"]
     # playlists = dict["PLs"]
@@ -52,4 +52,4 @@ def Save_Excel(PL_name_vl=None,PL_nbr=None,Do_lib_vl=False,rows_vl=None,iTunes=T
     # print("Hello, " + file_nm + "!")
 
 # CHAMA PROGRAM PL_name="ALL",Fave-iPhone
-Save_Excel(PL_name_vl="ZZZ",Do_lib_vl=1,rows_vl=100,iTunes=0)
+Save_Excel(PL_name_="ZZZ",Do_lib=1,rows=100,iTunes=0)
