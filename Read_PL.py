@@ -31,7 +31,7 @@ tag_dict = {
 "Skips" : "SkippedCount",
 "Added" : "DateAdded"}
 
-# THE BELOW OBJECTS ARE RECOGNIZED BY ANY FINCTION IN THIS MODULE
+# THE BELOW OBJECTS ARE RECOGNIZED BY ANY FUNCTION IN THIS MODULE
 def Init_iTunes():
     global iTunesApp
     global Sources
