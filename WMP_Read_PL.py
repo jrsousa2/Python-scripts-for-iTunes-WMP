@@ -11,7 +11,7 @@ tag_dict = {
     "AA" : "WM/AlbumArtist",
     "Album" : "WM/AlbumTitle", # OR Album
     "Genre" : "WM/Genre", # OR Genre
-    "Year" : "WM/Year",
+    "Year" : "ReleaseDateYear", #WM/Year
     "Group" : "WM/ContentGroupDescription",
     "Bitrate" : "Bitrate",
     "Plays": "UserPlayCount",
@@ -92,10 +92,6 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
        PL_no = 0
        user_inp = "0"
        By_name = True
-       # THIS PART USED TO TAKE TOO LONG
-       #dict = Get_WMP_PL_by_nbr(PL_name)
-       #if dict["res"]:
-          #PL_no = dict["PL_no"]
     elif not Do_lib and PL_no == None:
          nbr_PLs = playlists.Count
          # READS A PL
@@ -194,4 +190,72 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
     # VALUE RETURNED IS A DICT
     dict = {"Player": wmp, "Lib": library, "media": wmp.mediaCollection, "PLs": playlists, "PL": read_PL, "PL_no": PL_nbr, \
             "PL_Name": PL_name, "tracks": 1, "DF": df}
+    return dict
+
+# PLAYLISTS
+def Read_WMP_MC(col_names,files,Modify_cols=True):
+
+    # CREATES A COPY OF THE COL. LIST SO IT'S NOT MODIFIED OUTSIDE OF THIS FUNCTION
+    if not Modify_cols:
+       col_names = col_names[:]
+    
+    Init_wmp()
+    
+    # data IS A LIST OF LISTS
+    data = []
+    
+    # PROCESS SPECIFIED NUMBER OF ROWS
+    numtracks = len(files)
+    PL_nbr = 0
+    PL_name = ""
+
+    # DISPLAY MESSAGE
+    print("\nReading",numtracks,"WMP tracks from media\n")
+
+    # LOGIC TO DISPLAY IN THE LOG
+    tam = max(numtracks // 20, 1)
+    
+    # ORDER LIST SO COLUMN HEADERS ALWAYS MATCH THEIR VALUES
+    col_names = iTunes.order_list(col_names,order_list=order_list_wmp)
+    
+    # SEARCH AND ASSIGN TRACK
+    for m in range(numtracks):
+        PL = wmp.mediaCollection.getByAttribute("SourceURL", files[m])
+        track = PL.Item(0)
+        
+        # ONLY DOES AUDIO
+        if track is not None and track.getiteminfo("MediaType")=="audio":
+           # THE SOURCE (PLAYLIST/LIBRARY)
+           tag_list = [PL_nbr,PL_name]
+           # THE TRACK POSITION
+           tag_list.append(m)
+           dict = tag_dict_wmp(track,col_names)
+           for key in col_names:
+               value = dict[key]
+               tag_list.append(value)
+           #ADD ROW TO LIST, BEFORE CREATING DF
+           data.append(tag_list)
+           if (m+1) % tam==0:
+               print("Row. no: ",m+1)
+
+    # DATAFRAME
+    # ADDS COL. PL IF IT WASN'T INCLUDED
+    if "PL_nbr" not in col_names:
+        col_names.append("PL_nbr") 
+    if "PL_name" not in col_names:
+        col_names.append("PL_name")
+    if "Pos" not in col_names:
+        col_names.append("Pos")    
+    # ORDER THE LIST SO COLUMN HEADERS MATCH THEIR VALUES
+    col_names = iTunes.order_list(col_names,order_list=order_list_wmp)
+    df = pd.DataFrame(data, columns=col_names)
+    # SETS YEAR TYPE TO INTEGER
+    if "Year" in col_names:
+        df['Year'] = pd.to_numeric(df['Year'], errors="coerce")
+        df['Year'] = df['Year'].fillna(0)
+    
+    # ORDERS DF BY ART/TITLE (CONVERTED TO UNICODE)
+    # df = Order(df, col_names)
+    # VALUE RETURNED IS A DICT
+    dict = {"WMP": wmp, "Lib": library, "DF": df, "PL": None}
     return dict
