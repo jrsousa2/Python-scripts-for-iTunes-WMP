@@ -8,14 +8,14 @@ from unidecode import unidecode
 #import datetime
 from re import sub
 from traceback import print_exc
-
+from WMP_Read_PL import order_list
 
 # ORDER OF THE COLS. IN THE DF (BUT THEY CAN BE SPECIFIED ANY WAY)
 # THE BELOW IS JUST SO THE RIGHT HEADERS GO WITH THE RIGHT COLS.
 order_list_itunes = ["PL_name","Pos","ID","Arq","Art","Title","AA","Album","Genre","Year","Group","Bitrate","Len","Covers","Plays","Skips","Added"]
 
 # create a dictionary to store attribute names
-tag_dict = {
+iTu_tag_dict = {
 "Arq" : "Location",
 "Art" : "Artist",
 "Title" : "Name",
@@ -64,12 +64,12 @@ def Init_iTunes():
     return dict
 
 # PLAYLISTS (NAO ESTA SENDO USADO, PODE SER DELETADO DEPOIS)
-def PL_no_by_name(PL_name):
+def PL_nbr_by_name(PL_name):
     dict = {}
-    PL_no = PL_name_dict.get(PL_name,-1)
-    Achou = PL_no != -1
+    PL_nbr = PL_name_dict.get(PL_name,-1)
+    Achou = PL_nbr != -1
     dict["res"] = Achou          
-    dict["PL_no"] = PL_no
+    dict["PL_nbr"] = PL_nbr
     return dict
 
 # PLAYLISTS
@@ -80,7 +80,7 @@ def PL_name_by_ID(PL_Id):
 
 
 # PLAYLISTS
-def Read_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols=True):
+def Read_PL(col_names,PL_name=None,PL_nbr=None,Do_lib=False,rows=None,Modify_cols=True,Len_type="num"):
     global playlists
 
     # CREATES A COPY OF THE COL. LIST SO IT'S NOT MODIFIED OUTSIDE OF THIS FUNCTION
@@ -89,12 +89,12 @@ def Read_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols
 
     # LISTA A SER PROCESSADA (PRIORIDADE EH DADA A LIBRARY)
     if PL_name is not None and not Do_lib:
-       dict = PL_no_by_name(PL_name)
+       dict = PL_nbr_by_name(PL_name)
        if dict["res"]:
-          PL_no = dict["PL_no"]
+          PL_nbr = dict["PL_nbr"]
     #print("\n")
     if not Do_lib:
-       if PL_no == None:
+       if PL_nbr == None:
           # READS A PL
           print("Select from the following playlists")
           print("Number of playlists:",playlists.Count)
@@ -104,7 +104,7 @@ def Read_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols
               print(j, ":",PL_name)
           user_inp = input("\nEnter comma-separated lists to process: ")
        else:
-           user_inp = str(PL_no)
+           user_inp = str(PL_nbr)
     else:
         # THIS IS THE LIBRARY
         user_inp = "0"  
@@ -147,10 +147,10 @@ def Read_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols
         # ADD PLAYLIST NAME TO LIST
         PL_list.append(PL_name)
         # ORDER LIST SO COLUMN HEADERS ALWAYS MATCH THEIR VALUES
-        col_names = order_list(col_names)
+        col_names = order_list(col_names,order_list=order_list_itunes)
         # INICIA LISTA (m eh necessario para indicar posicao na playlist)
         # REMEMBER THAT POS IS ONLY USED TO REFERENCE THE iTUNES DB, NOT THE LISTS
-        # THE RANGE FOR ITEMS IN A PL IS NOT 0 TO (N-1) (IT'S 1 TO N)
+        # THE RANGE FOR ITEMS IN AN ITUNES PL IS NOT 0 TO (N-1) (IT'S 1 TO N)
         for m in range(1,numtracks+1):
             track = tracks.Item(m)
             if track.Kind == 1:
@@ -164,7 +164,10 @@ def Read_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols
                    elif key=="ID":
                         value = track.GetITObjectIDs()
                    else:
-                       value = getattr(track, tag_dict[key])
+                       value = getattr(track, iTu_tag_dict[key])
+                   if key=="Len" and Len_type=="num":
+                      value =  time_to_sec(value)   
+                      # value = pd.to_timedelta(secs, unit="s") 
                    if key=="Added":
                       year = value.year
                       month = value.month
@@ -185,15 +188,19 @@ def Read_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols
     if "PL_name" not in col_names:
         col_names.append("PL_name")
     if "Pos" not in col_names:
-        col_names.append("Pos")    
+        col_names.append("Pos") 
     # ORDER THE LIST OF COLUMNS TO MATCH THE ABOVE ORDER
     # SO COLUMN HEADERS ALWAYS MATCH THEIR VALUES
-    col_names = order_list(col_names)
+    col_names = order_list(col_names,order_list=order_list_itunes)
     df = pd.DataFrame(data, columns=col_names)
+
+    # IF LEN IS SELECTED, TRANSFORM INTO SECONDS (DUPLICATED)
+    if False and "Len" in col_names and Len_type=="num":
+       df["Len"] = pd.to_timedelta(df["Len"], unit="s")
     # ORDERS DF BY ART/TITLE (CONVERTED TO UNICODE)
     df = Order(df, col_names)
     # VALUE RETURNED IS A DICT
-    dict = {"App": iTunesApp, "PLs": playlists, "PL": read_PL, "PL_no": PL_nbr, \
+    dict = {"App": iTunesApp, "PLs": playlists, "PL": read_PL, "PL_nbr": PL_nbr, \
             "PL_Name": PL_name, "PL_list": PL_list, "tracks": tracks, "DF": df}
     return dict
 
@@ -217,21 +224,21 @@ def Reassign_PL(PL_Name):
         print("Either the playlist doesn't exist or there is more than one of the same!")
         result = 0   
     print("\nDoublecheck playlist: Before:",PL_Name,"\ After:",New_PL_name,"\n")
-    dict = {'PL_no': result, 'PL_Name': New_PL_name, 'tracks': tracks}
+    dict = {'PL_nbr': result, 'PL_Name': New_PL_name, 'tracks': tracks}
     return dict
 
-def Cria_PL(PL_nome,recria="N",Create_list=False):
-    PL = iTunesApp.LibrarySource.Playlists.ItemByName(PL_nome)
+def Cria_PL(PL_name,recria="N",Create_list=False):
+    PL = iTunesApp.LibrarySource.Playlists.ItemByName(PL_name)
     # CRIA PLAYLIST SE NAO EXISTE
     if PL is None:
-       iTunesApp.CreatePlaylist(PL_nome)
+       iTunesApp.CreatePlaylist(PL_name)
        PL_exists = False
     else:
         PL_exists = True
         if recria.lower()=="y":
            PL.Delete() 
-           iTunesApp.CreatePlaylist(PL_nome)
-    PL = iTunesApp.LibrarySource.Playlists.ItemByName(PL_nome)
+           iTunesApp.CreatePlaylist(PL_name)
+    PL = iTunesApp.LibrarySource.Playlists.ItemByName(PL_name)
     # READS THE PL
     File_list = []
     dict = {}
@@ -304,16 +311,6 @@ def Cria_skip_list(playlists,PL,dic):
                   file = file.lower()
                   dic[PL].add(file)
 
-# ORDERS A SUBLIST BASED ON THE ORDER OF THE SUPERLIST
-def order_list(smaller_list,order_list=order_list_itunes):
-    # Create a dictionary to store the index of each element in the larger list
-    index_dict = {element: index for index, element in enumerate(order_list)}
-    # Define a custom key function that returns the index of each element in the larger list
-    key_func = lambda element: index_dict[element]
-    # Sort the smaller list based on the custom key function
-    smaller_list.sort(key=key_func)
-    return smaller_list
-
 # SORTS BY ART AND TITLE BASED ON THE ANSI ENCODING RATHER THAN UTF-8
 def Order(df, col_names):
     if "Art" in col_names:
@@ -362,6 +359,84 @@ def Order(df, col_names):
         else:
             df = df.sort_values(by=["Priority","Art_sort"], ascending=True) 
     return df
+
+def time_to_sec(time_str):
+    # Split the time string into minutes and seconds
+    min, sec = map(int, time_str.split(':'))
+    # Calculate the total time in seconds
+    total_sec = min * 60 + sec
+    return total_sec
+
+# READS LIBRARY TO GET ID'S (SUPPOSED TO BE FASTER)
+def Read_lib_miss(rows=None):
+    # THIS IS THE LIBRARY
+    read_PL = iTunesApp.LibraryPlaylist
+    # BLOCO QUE SCANEIA A PL
+    tracks = read_PL.Tracks
+    
+    # data IS A LIST OF LISTS
+    data = []
+    print("\nProcessing iTunes music library")
+
+    # PROCESS SPECIFIED NUMBER OF ROWS
+    if rows==None:
+        numtracks = tracks.Count
+    else:
+        numtracks = min(rows, tracks.Count)
+
+    # DISPLAY MESSAGE
+    print("\ntracks: ",tracks.Count,"(processing",numtracks,")\n")
+        
+    # LOGIC TO DISPLAY IN THE LOG
+    tam = max(numtracks // 5, 1)
+    
+    # REMEMBER THAT POS IS ONLY USED TO REFERENCE THE iTUNES DB, NOT THE LISTS
+    # THE RANGE FOR ITEMS IN A PL IS NOT 0 TO (N-1) (IT'S 1 TO N)
+    for m in range(1,numtracks+1):
+        track = tracks.Item(m)
+        if m % tam==0:
+           print("Row. no:",m,"of",numtracks)
+        if track.Location=="" and track.Kind == 1:
+           # THE SOURCE (PLAYLIST/LIBRARY), THE TRACK POSITION
+           list = [track.GetITObjectIDs(), track.Artist, track.Name, track.PlayedCount, track.Time]
+           # ADD ROW TO LIST, BEFORE CREATING DF 
+           data.append(list)
+           
+    # DATAFRAME
+    col_names = ["Miss_ID", "Miss_Art", "Miss_Title", "Miss_Plays", "Miss_Len"]
+    df = pd.DataFrame(data, columns=col_names)
+
+    # VALUE RETURNED IS A DICT
+    dict = {"App": iTunesApp, "PLs": playlists, "tracks": tracks, "DF": df}
+    return dict
+
+# CODE TO OBTAIN ALL PROPERTIES OF TRACK AT A TIME (REQUESTED ONES IN COLS)
+def iTunes_tag_dict(track,cols,Len_type="num"):
+    dict = {}
+    # PROPERTIES
+    for key in cols:
+        if key=="Covers":
+           value = track.Artwork.Count
+        elif key=="ID":
+           value = track.GetITObjectIDs()
+        else:
+           value = getattr(track, iTu_tag_dict[key])
+        if key=="Len" and Len_type=="num":
+           value =  time_to_sec(value)   
+        if key=="Added":
+           year = value.year
+           month = value.month
+           day = value.day
+           hour = value.hour
+           minute = value.minute
+           second = value.second
+           # CONVERTS PYWINTYPE DATE TO PANDAS DATETIME
+           value = pd.to_datetime(f"{year}-{month}-{day} {hour}:{minute}:{second}")
+        dict[key] = value
+        #list.append(value)
+    return dict
+
+
 
 # INITIALIZES iTunes
 Init_iTunes()
