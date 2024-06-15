@@ -1,6 +1,5 @@
 import win32com.client
 import pandas as pd
-import Read_PL as iTunes
 
 # ORDER OF THE COLS. IN THE DF (BUT THEY CAN BE SPECIFIED ANY WAY)
 # THE BELOW IS JUST SO THE RIGHT HEADERS GO WITH THE RIGHT COLS.
@@ -18,6 +17,17 @@ tag_dict = {
     "Added": "AcquisitionTime" #AcquisitionTimeYearMonthDay
     }
 
+# ORDERS A SUBLIST BASED ON THE ORDER OF THE SUPERLIST order_list=order_list_itunes
+def order_list(smaller_list,order_list=None):
+    # Create a dictionary to store the index of each element in the larger list
+    index_dict = {element: index for index, element in enumerate(order_list)}
+    # Define a custom key function that returns the index of each element in the larger list
+    key_func = lambda element: index_dict[element]
+    # Sort the smaller list based on the custom key function
+    smaller_list.sort(key=key_func)
+    return smaller_list
+
+
 # OS OBJETOS ABAIXO SAO RECONHECIDOS POR QQ FUNCAO DESSE MODULO
 # OBJECT wmp IS THE Player
 def Init_wmp():
@@ -26,7 +36,8 @@ def Init_wmp():
     global playlists
 
     wmp = win32com.client.Dispatch('WMPlayer.OCX')
-    library = wmp.mediaCollection.getAll()
+    # library = wmp.mediaCollection.getAll()
+    library = wmp.mediaCollection.getByAttribute("MediaType", "audio")
 
     # get the playlist collection
     playlists = wmp.playlistCollection.getAll()
@@ -34,7 +45,7 @@ def Init_wmp():
 
 # create a dictionary to store attribute names
 # THERE'S A CODE TO OBTAIN ALL PROPERTIES OF TRACK (COMMENTED OUT)
-def tag_dict_wmp(item,cols):
+def WMP_tag_dict(item,cols):
     dict = {}
     # for i in range(item.attributeCount):
     #    k = item.getAttributeName(i)
@@ -73,11 +84,11 @@ def Get_WMP_PL_by_nbr(srch_PL):
            break
         PL_nbr = PL_nbr+1   
     dict["res"] = Achou          
-    dict["PL_no"] = PL_nbr
+    dict["PL_nbr"] = PL_nbr
     return dict    
 
 # PLAYLISTS
-def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_cols=True):
+def Read_WMP_PL(col_names,PL_name=None,PL_nbr=None,Do_lib=False,rows=None,Modify_cols=True):
 
     # CREATES A COPY OF THE COL. LIST SO IT'S NOT MODIFIED OUTSIDE OF THIS FUNCTION
     if not Modify_cols:
@@ -89,10 +100,10 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
     if not Do_lib and PL_name is not None:
        #print("\nReading WMP playlists...this may take a while")
        read_PL = wmp.playlistCollection.getByName(PL_name).Item(0)
-       PL_no = 0
+       PL_nbr = 0
        user_inp = "0"
        By_name = True
-    elif not Do_lib and PL_no == None:
+    elif not Do_lib and PL_nbr == None:
          nbr_PLs = playlists.Count
          # READS A PL
          print("\nReading WMP playlists...this may take a while")
@@ -103,8 +114,8 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
              # PL_name = playlist.Name
              print(j, ":", PL_name)
          user_inp = input("\nEnter comma-separated lists to process: ")
-    elif not Do_lib and PL_no != None:
-         user_inp = str(PL_no)
+    elif not Do_lib and PL_nbr != None:
+         user_inp = str(PL_nbr)
     elif Do_lib:
          # THIS IS THE LIBRARY
          user_inp = "0"
@@ -126,9 +137,9 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
              PL_nbr = int(res_list[k])
              read_PL = playlists[PL_nbr]
              PL_name = read_PL.Name
-             print("\nProcessing playlist",k+1,"of",nbr_PLs,":",PL_name)
+             print("\nProcessing WMP playlist",k+1,"of",nbr_PLs,":",PL_name)
         elif Do_lib: 
-             print("\nProcessing music library")
+             print("\nProcessing WMP music library")
         
         # PROCESS SPECIFIED NUMBER OF ROWS
         if rows is None:
@@ -146,12 +157,13 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
         tam = max(numtracks // 20, 1)
         
         # ORDER LIST SO COLUMN HEADERS ALWAYS MATCH THEIR VALUES
-        col_names = iTunes.order_list(col_names,order_list=order_list_wmp)
-        # THE RANGE FOR ITEMS IN A WMP PL IS NOT 0 TO (N-1) (IT'S 1 TO N)
+        col_names = order_list(col_names,order_list=order_list_wmp)
+        # THE RANGE FOR ITEMS IN A WMP PL IS 0 TO (N-1)
         for m in range(numtracks):
             if not Do_lib:
                track = read_PL.Item(m)
             else:
+               # IT SEEMS THAT library.Item(m) ALSO WORKS
                track = library[m]    
             
             # ONLY DOES AUDIO
@@ -160,7 +172,7 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
                tag_list = [PL_nbr,PL_name]
                # THE TRACK POSITION
                tag_list.append(m)
-               dict = tag_dict_wmp(track,col_names)
+               dict = WMP_tag_dict(track,col_names)
                for key in col_names:
                    value = dict[key]
                    tag_list.append(value)
@@ -178,7 +190,7 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
     if "Pos" not in col_names:
         col_names.append("Pos")    
     # ORDER THE LIST SO COLUMN HEADERS MATCH THEIR VALUES
-    col_names = iTunes.order_list(col_names,order_list=order_list_wmp)
+    col_names = order_list(col_names,order_list=order_list_wmp)
     df = pd.DataFrame(data, columns=col_names)
     # SETS YEAR TYPE TO INTEGER
     if "Year" in col_names:
@@ -188,11 +200,12 @@ def Read_WMP_PL(col_names,PL_name=None,PL_no=None,Do_lib=False,rows=None,Modify_
     # ORDERS DF BY ART/TITLE (CONVERTED TO UNICODE)
     # df = Order(df, col_names)
     # VALUE RETURNED IS A DICT
-    dict = {"Player": wmp, "Lib": library, "media": wmp.mediaCollection, "PLs": playlists, "PL": read_PL, "PL_no": PL_nbr, \
+    dict = {"WMP": wmp, "Lib": library, "PLs": playlists, "PL": read_PL, "PL_nbr": PL_nbr, \
             "PL_Name": PL_name, "tracks": 1, "DF": df}
     return dict
 
-# PLAYLISTS
+# READS ONLY WMP FILES FROM PROVIDED FILES LIST 
+# SO IT MATCHES THE FILES FROM THE ITUNES PLAYLIST
 def Read_WMP_MC(col_names,files,Modify_cols=True):
 
     # CREATES A COPY OF THE COL. LIST SO IT'S NOT MODIFIED OUTSIDE OF THIS FUNCTION
@@ -210,18 +223,24 @@ def Read_WMP_MC(col_names,files,Modify_cols=True):
     PL_name = ""
 
     # DISPLAY MESSAGE
-    print("\nReading",numtracks,"WMP tracks from media\n")
+    print("\nReading",numtracks,"WMP tracks from media collection\n")
 
     # LOGIC TO DISPLAY IN THE LOG
     tam = max(numtracks // 20, 1)
     
     # ORDER LIST SO COLUMN HEADERS ALWAYS MATCH THEIR VALUES
-    col_names = iTunes.order_list(col_names,order_list=order_list_wmp)
+    col_names = order_list(col_names,order_list=order_list_wmp)
     
     # SEARCH AND ASSIGN TRACK
+    miss_files = []
     for m in range(numtracks):
         PL = wmp.mediaCollection.getByAttribute("SourceURL", files[m])
-        track = PL.Item(0)
+        try:
+            track = PL.Item(0)
+        except:
+            print("File",m+1,"of",numtracks,"not found:",files[m],"\n")
+            miss_files.append(files[m])
+            track = None    
         
         # ONLY DOES AUDIO
         if track is not None and track.getiteminfo("MediaType")=="audio":
@@ -229,7 +248,7 @@ def Read_WMP_MC(col_names,files,Modify_cols=True):
            tag_list = [PL_nbr,PL_name]
            # THE TRACK POSITION
            tag_list.append(m)
-           dict = tag_dict_wmp(track,col_names)
+           dict = WMP_tag_dict(track,col_names)
            for key in col_names:
                value = dict[key]
                tag_list.append(value)
@@ -247,7 +266,7 @@ def Read_WMP_MC(col_names,files,Modify_cols=True):
     if "Pos" not in col_names:
         col_names.append("Pos")    
     # ORDER THE LIST SO COLUMN HEADERS MATCH THEIR VALUES
-    col_names = iTunes.order_list(col_names,order_list=order_list_wmp)
+    col_names = order_list(col_names,order_list=order_list_wmp)
     df = pd.DataFrame(data, columns=col_names)
     # SETS YEAR TYPE TO INTEGER
     if "Year" in col_names:
@@ -257,5 +276,6 @@ def Read_WMP_MC(col_names,files,Modify_cols=True):
     # ORDERS DF BY ART/TITLE (CONVERTED TO UNICODE)
     # df = Order(df, col_names)
     # VALUE RETURNED IS A DICT
-    dict = {"WMP": wmp, "Lib": library, "DF": df, "PL": None}
+    dict = {"WMP": wmp, "Lib": library, "DF": df, "PL": None, "Missing": miss_files}
     return dict
+
