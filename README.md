@@ -50,5 +50,5 @@ wants to extract from the mp3 files.
 <br>Finally, this is a snapshot of one output file:
 ![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e3d63161-f639-4c6c-9374-b4ffcb8339de)
 
-##### Feel free to send me an e-mail if you have question on how these codes work. 
+#### Feel free to send me an e-mail if you have question on how these codes work. 
 <i>My contact can be found in Google</i>.
