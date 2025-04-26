@@ -1,5 +1,6 @@
 import win32com.client
 import pandas as pd
+from Read_PL import order_list
 
 # ORDER OF THE COLS. IN THE DF (BUT THEY CAN BE SPECIFIED ANY WAY)
 # THE BELOW IS JUST SO THE RIGHT HEADERS GO WITH THE RIGHT COLS.
@@ -7,25 +8,16 @@ order_list_wmp = ["PL_nbr","PL_name","Pos","ID","Arq","Art","Title","AA","Album"
 
 tag_dict = {
     "Art" : "Artist",
+    "Title" : "Title",
     "AA" : "WM/AlbumArtist",
     "Album" : "WM/AlbumTitle", # OR Album
     "Genre" : "WM/Genre", # OR Genre
-    "Year" : "ReleaseDateYear", #WM/Year
+    "Year" : "WM/Year", #WM/Year
     "Group" : "WM/ContentGroupDescription",
     "Bitrate" : "Bitrate",
     "Plays": "UserPlayCount",
     "Added": "AcquisitionTime" #AcquisitionTimeYearMonthDay
     }
-
-# ORDERS A SUBLIST BASED ON THE ORDER OF THE SUPERLIST order_list=order_list_itunes
-def order_list(smaller_list,order_list=None):
-    # Create a dictionary to store the index of each element in the larger list
-    index_dict = {element: index for index, element in enumerate(order_list)}
-    # Define a custom key function that returns the index of each element in the larger list
-    key_func = lambda element: index_dict[element]
-    # Sort the smaller list based on the custom key function
-    smaller_list.sort(key=key_func)
-    return smaller_list
 
 
 # OS OBJETOS ABAIXO SAO RECONHECIDOS POR QQ FUNCAO DESSE MODULO
@@ -47,6 +39,7 @@ def Init_wmp():
 # THERE'S A CODE TO OBTAIN ALL PROPERTIES OF TRACK (COMMENTED OUT)
 def WMP_tag_dict(item,cols):
     dict = {}
+    # CASO PRECISE RELEMBRAR TODAS AS PROPRIEDADES
     # for i in range(item.attributeCount):
     #    k = item.getAttributeName(i)
     #    print("Attrib:",k,"Value:",item.getItemInfo(k))
@@ -64,8 +57,8 @@ def WMP_tag_dict(item,cols):
         dict["Added"] = pd.to_datetime(dict["Added"], format="%d/%b/%Y %I:%M:%S %p")    
     if "Arq" in cols: 
         dict["Arq"] = item.sourceURL
-    if "Title" in cols: 
-        dict["Title"] = item.name
+    #if "Title" in cols: 
+    #    dict["Title"] = item.name
     if "Len" in cols: 
         dict["Len"] = item.durationString
     if "ID" in cols: 
