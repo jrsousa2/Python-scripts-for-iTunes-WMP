@@ -12,7 +12,7 @@ properties of both the WMP and iTunes COM API's. (Asking ChatGPT to create this 
 
 <br>For example:
   <br>&nbsp;&nbsp;&nbsp;How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
-  <br>&nbsp;&nbsp;&nbsp;Even better, how can you directly reference a track in the iTunes library with a persistent ID (that sticks regardless of instance)?
+  <br>&nbsp;&nbsp;&nbsp;Even better, how can you directly reference a track in the iTunes library with a persistent ID (that sticks regardless of session)?
   <br>&nbsp;&nbsp;&nbsp;How can you locate and load the iTunes XML library (the fastest way to read all the database of music files)?
   <br>&nbsp;&nbsp;&nbsp;How do you read the file tags that WMP keeps in the metadata, some of which are embedded into the file and some of which are external?
   <br>&nbsp;&nbsp;&nbsp;How can you sync play counts between iTunes and WMP? (Code Call_Sync_Plays.py does that by taking the max of both).
@@ -49,3 +49,6 @@ wants to extract from the mp3 files.
 
 <br>Finally, this is a snapshot of one output file:
 ![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e3d63161-f639-4c6c-9374-b4ffcb8339de)
+
+### Feel free to send me an e-mail if you have question on how these codes work. 
+<i>My contact can be found in Google</i>.
