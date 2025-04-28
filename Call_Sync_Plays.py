@@ -15,7 +15,7 @@ import Files
 from sys import path
 
 # Insert the path of modules folder  
-path.insert(0, "D:\\iTunes\\WMP")
+path.insert(0, "D:\\Python\\WMP")
 
 import WMP_Read_PL as WMP # type: ignore
 
@@ -31,7 +31,7 @@ def Save(df,output="iTunes_vs_WMP.xlsx"):
         # df = df.rename(columns={"Arq": "Location" })
 
     # SAVE TO EXCEL FILE:
-    file_nm = "D:\\iTunes\\Excel\\" + output
+    file_nm = "D:\\Python\\Excel\\" + output
     # save the dataframe to an Excel file
     df.to_excel(file_nm, index=False)
 

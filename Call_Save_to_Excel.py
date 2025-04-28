@@ -10,7 +10,7 @@ from Files import file_w_ext
 from sys import path
 
 # Insert the path of modules folder  
-path.insert(0, "D:\\iTunes\\WMP")
+path.insert(0, "D:\\Python\\WMP")
 
 # MAIN CODE
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True,XML=False,col_names = ["Arq","Art","Title"]):
@@ -54,13 +54,13 @@ def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True,XML=F
         df = df.rename(columns={"Arq": "Location" })
 
     # SAVE TO EXCEL FILE:
-    user_inp = input("\nOutput name (file will be saved to D:\iTunes\Excel\\all.xls): ")
+    user_inp = input("\nOutput name (file will be saved to D:\Python\Excel\\all.xls): ")
     # user_inp = ""
     #user_inp = "Test"
     if user_inp == "":
-       file_nm = "D:\\iTunes\\Excel\\all.xlsx"
+       file_nm = "D:\\Python\\Excel\\all.xlsx"
     else:
-        file_nm = "D:\\iTunes\\Excel\\" + user_inp + ".xlsx"
+        file_nm = "D:\\Python\\Excel\\" + user_inp + ".xlsx"
     
     # NAMES SHEET
     if iTunes:
