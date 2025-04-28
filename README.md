@@ -11,11 +11,11 @@ You can choose to export a list of files (plus tags) either for all of your libr
 properties of both the WMP and iTunes COM API's. (Asking ChatGPT to create this type of code doesn't work, it gets lots of these API questions wrong -- ChatGPT struggles with tricky questions.)
 
 <br>For example:
-  <br>&nbsp;&nbsp;&nbsp;How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
-  <br>&nbsp;&nbsp;&nbsp;Even better, how can you directly reference a track in the iTunes library with a persistent ID (that sticks regardless of session)?
-  <br>&nbsp;&nbsp;&nbsp;How can you locate and load the iTunes XML library (the fastest way to read all the database of music files)?
-  <br>&nbsp;&nbsp;&nbsp;How do you read the file tags that WMP keeps in the metadata, some of which are embedded into the file and some of which are external?
-  <br>&nbsp;&nbsp;&nbsp;How can you sync play counts between iTunes and WMP? (Code Call_Sync_Plays.py does that by taking the max of both).
+- How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
+- Even better, how can you directly reference a track in the iTunes library with a persistent ID (that sticks regardless of session)?
+- How can you locate and load the iTunes XML library (the fastest way to read all the database of music files)?
+- How do you read the file tags that WMP keeps in the metadata, some of which are embedded into the file and some of which are external?
+- How can you sync play counts between iTunes and WMP? (Code Call_Sync_Plays.py does that by taking the max of both).
 
 <br>Here's a brief description of the parameters of the codes:
 
