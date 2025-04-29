@@ -12,7 +12,7 @@ tag_dict = {
     "AA" : "WM/AlbumArtist",
     "Album" : "WM/AlbumTitle", # OR Album
     "Genre" : "WM/Genre", # OR Genre
-    "Year" : "WM/Year", #WM/Year
+    "Year" : "WM/Year", # OR ReleaseDateYear
     "Group" : "WM/ContentGroupDescription",
     "Bitrate" : "Bitrate",
     "Plays": "UserPlayCount",
@@ -39,7 +39,7 @@ def Init_wmp():
 # THERE'S A CODE TO OBTAIN ALL PROPERTIES OF TRACK (COMMENTED OUT)
 def WMP_tag_dict(item,cols):
     dict = {}
-    # CASO PRECISE RELEMBRAR TODAS AS PROPRIEDADES
+    # IN CASE YOU NEED TO RECALL ALL THE OBJECT PROPERTIES
     # for i in range(item.attributeCount):
     #    k = item.getAttributeName(i)
     #    print("Attrib:",k,"Value:",item.getItemInfo(k))

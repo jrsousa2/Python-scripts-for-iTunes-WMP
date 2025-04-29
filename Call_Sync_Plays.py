@@ -12,12 +12,7 @@ import Read_PL
 # import pandas as pd
 import Files
 
-from sys import path
-
-# Insert the path of modules folder  
-path.insert(0, "D:\\Python\\WMP")
-
-import WMP_Read_PL as WMP # type: ignore
+import WMP_Read_PL as WMP 
 
 # CALLS Read_PL FUNCTION 
 col_names =  ["Arq", "Plays", "ID"]

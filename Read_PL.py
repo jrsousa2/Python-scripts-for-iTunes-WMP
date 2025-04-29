@@ -70,6 +70,7 @@ def unpack_PID(PID):
     return unpack('!ii', a2b_hex(PID))
 
 # THE BELOW OBJECTS ARE RECOGNIZED BY ANY FUNCTION IN THIS MODULE
+# IF THE CALLED FUNCTION HAS CALLED THIS FUNCTION BEFOREHAND
 def Init_iTunes():
     global iTunesApp
     global Sources
@@ -119,8 +120,6 @@ def PL_nbr_by_name(PL_name):
     dict["res"] = Achou          
     dict["PL_nbr"] = PL_nbr
     return dict
-
-
 
 # PLAYLISTS
 def PL_name_by_ID(PL_Id):
@@ -325,7 +324,7 @@ def Add_file_to_PL(PLs,PL_name,arq): #,PL_files
                print("File not found!")   
            #PL_files[PL].add(arq.lower())
 
-def Cria_skip_list(PLs,PL,dic):
+def Create_skip_list(PLs,PL,dic):
     try:
         This_PL = PLs.ItemByName(PL)
     except Exception:
@@ -401,7 +400,7 @@ def time_to_sec(time_str):
     return total_sec
 
 # READS LIBRARY TO GET ID'S (SUPPOSED TO BE FASTER)
-# PROBABLY NO LONGER NEEDED SINCE THE LIBRARY XML IS MUCH FASTER
+# PROBABLY NO LONGER NEEDED SINCE THE LIBRARY's XML FILE IS MUCH FASTER
 def Read_lib_miss(rows=None):
     # THIS IS THE LIBRARY
     read_PL = iTunesApp.LibraryPlaylist
@@ -466,7 +465,7 @@ def Get_track_attrib(track, key, Len_type="char"):
         value = to_datetime(f"{year}-{month}-{day} {hour}:{minute}:{second}")    
     return value
 
-# CODE TO OBTAIN ALL PROPERTIES OF TRACK AT A TIME (REQUESTED ONES IN COLS)
+# CODE TO OBTAIN ALL PROPERTIES OF TRACK AT A TIME (THE REQUESTED ONES IN THE COLS)
 def iTunes_tag_dict(track,cols,Len_type="num"):
     dict = {}
     # PROPERTIES
@@ -566,4 +565,3 @@ def Read_xml(col_names,rows=None,Len_type="num"):
 
 # INITIALIZES iTunes
 # Init_iTunes()
-

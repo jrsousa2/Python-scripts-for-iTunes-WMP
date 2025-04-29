@@ -7,10 +7,6 @@
 
 #import pandas as pd
 from Files import file_w_ext
-from sys import path
-
-# Insert the path of modules folder  
-path.insert(0, "D:\\Python\\WMP")
 
 # MAIN CODE
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True,XML=False,col_names = ["Arq","Art","Title"]):
