@@ -1,25 +1,25 @@
 I just started on GitHub, eventually I plan to share my Python scripts to help you manage your iTunes music library.
 
-<br>11/03/2023 Edit: I've just shared some of the python codes that I use to manage my music collection (with 
+11/03/2023 Edit: I've just shared some of the python codes that I use to manage my music collection (with 
 roughly 64,000 mp3 files) in both <b>iTunes and Windows Media Player</b>.
 
-<br>The main code Call_Save_to_Excel.py can be run from VS Code (or any other suitable python compiler/editor) and will
+The main code Call_Save_to_Excel.py can be run from VS Code (or any other suitable python compiler/editor) and will
 create an Excel file with a list of your mp3 files and chosen tags, either through an interface with iTunes or Windows Media Player.
 You can choose to export a list of files (plus tags) either for all of your library or for a playlist (or set of playlists).
 
-<br>These are relatively basic codes and can be useful to give first time users some insights into the libraries of functions, methods and
+These are relatively basic codes and can be useful to give first time users some insights into the libraries of functions, methods and
 properties of both the WMP and iTunes COM API's. (Asking ChatGPT to create this type of code doesn't work, it gets lots of these API questions wrong -- ChatGPT struggles with tricky questions.)
 
-<br>For example:
+For example:
 - How can you directly reference a track in the iTunes library with a tuple of 4 ID numbers?
 - Even better, how can you directly reference a track in the iTunes library with a persistent ID (that sticks regardless of session)?
 - How can you locate and load the iTunes XML library (the fastest way to read all the database of music files)?
 - How do you read the file tags that WMP keeps in the metadata, some of which are embedded into the file and some of which are external?
 - How can you sync play counts between iTunes and WMP? (Code Call_Sync_Plays.py does that by taking the max of both).
 
-<br>Here's a brief description of the parameters of the codes:
+Here's a brief description of the parameters of the codes:
 
-<br><b>Code Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)</b>
+<b>Code Call_Save_to_Excel.py calls Read_PL.py (module for iTunes) and WMP_Read_PL.py (module for WMP)</b>
 
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True):
 <br>**iTunes:** If True, will use iTunes library or playlists (if False, it will use WMP)
@@ -38,15 +38,15 @@ wants to extract from the mp3 files. The code can be easily modified to have thi
 <br>Here's an example:
 <br>col_names =  ["Arq","Art","Title","Year"]
 
-<br>Here's a list of all the tags that can be extracted:
+Here's a list of all the tags that can be extracted:
 ![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/3db6168a-3ea3-496e-a42d-3bbfc333a211)
 
 
-<br>**Be sure to change the default folder** that the Excel file will be saved to in the main code.
+**Be sure to change the default folder** that the Excel file will be saved to in the main code.
 <br>This is done in lines 41 and 43 of the main codes and is currenty set to:
 <br>file_nm = "D:\\Python\\Excel\\" + user_inp + ".xlsx"
 
-<br>Finally, this is a snapshot of one output file:
+Finally, this is a snapshot of one output file:
 ![image](https://github.com/jrsousa2/Python-scripts-for-iTunes/assets/94881602/e3d63161-f639-4c6c-9374-b4ffcb8339de)
 
 <b>Feel free to send me an e-mail if you have questions on how these codes work.</b>
