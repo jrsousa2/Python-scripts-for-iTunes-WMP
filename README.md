@@ -1,6 +1,6 @@
 I just started on GitHub, eventually I plan to share my Python scripts to help you manage your iTunes music library.
 
-<br>11/03/2023 Edit: I've just shared some of the various python codes that I use to manage my music collection (with 
+<br>11/03/2023 Edit: I've just shared some of the python codes that I use to manage my music collection (with 
 roughly 64,000 mp3 files) in both <b>iTunes and Windows Media Player</b>.
 
 <br>The main code Call_Save_to_Excel.py can be run from VS Code (or any other suitable python compiler/editor) and will
@@ -34,8 +34,7 @@ playlists along with their respective numbers (per the iTunes or WMP libraries),
 all playlists that they wish to process separated by comma (the program has instruction prompts and other messages to guide the user).
 
 <br>**col_names**: This variable is entered straight into the code and identifies the tags that the user
-wants to extract from the mp3 files. 
-<br>(The code can be easily modified to have this variable as a parameter to call the main macro with.) 
+wants to extract from the mp3 files. The code can be easily modified to have this variable as a parameter to call the main macro with. 
 <br>Here's an example:
 <br>col_names =  ["Arq","Art","Title","Year"]
 
