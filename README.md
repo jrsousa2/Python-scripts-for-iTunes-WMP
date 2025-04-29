@@ -33,7 +33,7 @@ If none of the above parameters (PL_name, PL_Nbr) is supplied, and Do_lib=False,
 playlists along with their respective numbers (per the iTunes or WMP libraries), and the user will be able to enter 
 all playlists that they wish to process separated by comma (the program has instruction prompts and other messages to guide the user).
 
-<br>**col_names**: This variable is entered straight into the code and identifies the tags that the user
+**col_names**: This variable is entered straight into the code and identifies the tags that the user
 wants to extract from the mp3 files. The code can be easily modified to have this variable as a parameter to call the main macro with. 
 <br>Here's an example:
 <br>col_names =  ["Arq","Art","Title","Year"]
