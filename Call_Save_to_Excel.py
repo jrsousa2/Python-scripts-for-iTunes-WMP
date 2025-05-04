@@ -8,6 +8,10 @@
 #import pandas as pd
 from Files import file_w_ext
 
+import sys
+sys.path.insert(0, "D:\\Python\\iTunes")
+sys.path.insert(0, "D:\\Python\\WMP")
+
 # MAIN CODE
 def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True,XML=False,col_names = ["Arq","Art","Title"]):
     # CALLS Read_PL FUNCTION ,Do_lib=True,rows=10
@@ -42,7 +46,7 @@ def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True,XML=F
     # KEEP ONLY SELECTED COLS.
     if iTunes and XML and "PID" in col_names:
        col_names.append("PID2") 
-    df = df.loc[:, col_names]
+    # df = df.loc[:, col_names]
     
     # RENAME THE COLUMNS HEADERS
     if "Arq" in col_names:
@@ -77,4 +81,4 @@ def Save_Excel(PL_name=None,PL_nbr=None,Do_lib=False,rows=None,iTunes=True,XML=F
     # print("Hello, " + file_nm + "!")
 
 # CHAMA PROGRAM PL_name="ALL",Fave-iPhone ["Arq","Art","Title","Len"] "ID", "PID", "Added"
-Save_Excel(PL_name="Faves-Easy",Do_lib=False,rows=None,iTunes=1,XML=0,col_names = ["Arq","Art","Title","AA","Album","Year","Genre"])
+Save_Excel(PL_name="Faves-Easy",Do_lib=1,rows=150,iTunes=0,XML=1,col_names = ["Arq","Art","Title","AA","Album","Year","Genre"])
